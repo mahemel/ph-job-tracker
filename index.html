@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PH Job Tracker</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-black: #002C5C;
+            --color-darkGray: #323B49;
+            --color-gray: #64748B;
+            --color-primary: #3B82F6;
+            --color-green: #10B981;
+            --color-red: #EF4444;
+            --color-stroke: #F1F2F4;
+            --color-sky: #EEF4FF;
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+
+    <style>
+        * {
+            font-family: "Geist", sans-serif;
+        }
+        .btn-active {
+            background: var(--color-primary);
+            color: #fff;
+        }
+        .tabs-box input {
+            box-shadow: none !important;
+            min-width: 84px;
+        }
+        .tabs-box input:checked {
+            background: var(--color-primary);
+            color: #fff;
+        }
+    </style>
+
+</head>
+<body class="min-h-screen bg-[#F8FAFC] py-[60px] px-5">
+    <section class="application-tracker-head">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold leading-none mb-5 text-black">Job Application Tracker</h1>
+
+            <div class="job-tracker-summary grid grid-cols-3 gap-4 pb-[30px] mb-[30px] border-b border-[#E6E7E9]">
+                <div class="card bg-white border border-stroke">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-sm text-darkGray font-medium">Total</h2>
+                        <p class="total-job text-2xl font-bold text-black leading-none">8</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-white border border-stroke">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-sm text-darkGray font-medium">Interview</h2>
+                        <p class="total-interview text-2xl font-bold text-green leading-none">0</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-white border border-stroke">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-sm text-darkGray font-medium">Rejected</h2>
+                        <p class="total-rejected text-2xl font-bold text-red leading-none">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- application-tracker-head -->
+
+    <section class="application-wrapper">
+        <div class="container mx-auto">
+            <div class="available-jobs flex justify-between mb-6 items-center">
+                <h2 class="text-xl font-semibold leading-none text-black">Available Jobs</h2>
+
+                <div class="jobs flex items-center gap-1 text-base text-gray font-medium">
+                    <div id="interview-counter" class="hidden">
+                        <span class="total-interview leading-none">0</span> of 
+                    </div>
+                    
+                    <div id="rejection-counter" class="hidden">
+                        <p class="total-rejected">0</span> of 
+                    </div>
+                    
+                    <div id="job-counts">
+                        <span class="total-job">8</span> jobs
+                    </div>
+                </div>  
+            </div>
+            <!-- available-jobs -->
+
+
+            <!-- name of each tab group should be unique -->
+            <div class="tabs tabs-box bg-transparent border-0 shadow-none p-0 gap-2 mb-4">
+                <input type="radio" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="All" checked="checked" />
+
+                <div class="tab-content">
+                    <div id="application-lists" class="space-y-4">
+
+                        <div class="card bg-white border border-stroke">
+                            <div class="card-body p-6 gap-0">
+                                <h2 class="card-title text-lg text-black font-semibold mb-1">Mobile First Corp</h2>
+                                <p class="job-position text-gray text-base mb-5">React Native Developer</p>
+
+                                <p class="text-gray text-sm mb-5">Remote • Full-time • $130,000 - $175,000</p>
+
+                                <div class="job-card-status mb-2">
+                                    <div class="badge h-9 rounded font-medium text-black bg-sky">NOT APPLIED</div>
+                                </div>
+
+                                <p class="text-darkGray text-sm mb-5">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+
+                                <div class="btn-grup flex gap-2">
+                                    <button class="btn border-green font-medium rounded text-green bg-white h-9 w-[100px]">INTERVIEW</button>
+                                    <button class="btn border-red font-medium rounded text-red bg-white h-9 w-[100px]">REJECTED</button>
+                                </div>
+
+                                <button type="button" class="btn btn-circle absolute top-8 right-6"><img src="assets/trash.svg" alt="Trash Icon"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <input type="radio" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="Interview" />
+                <div class="tab-content">
+                    <div class="card bg-white border border-stroke text-center">
+                        <div class="card-body p-6 gap-0 py-[111px] text-center">
+                            <img class="w-[100px] mx-auto mb-5" src="assets/document.svg" alt="document icon">
+                            <h3 class="text-2xl text-black font-semibold mb-1">No jobs available</h3>
+                            <p class="text-base text-gray">Check back soon for new job opportunities</p>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="radio" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="Rejected" />
+                <div class="tab-content">Tab content 3</div>
+            </div>
+
+
+            <!-- <div class="status-tabs flex gap-2 mb-4">
+                <button class="btn btn-active min-h-8 min-w-20 border-stroke bg-white font-medium text-gray text-xs hover:text-white hover:bg-primary active:bg-primary">All</button>
+                <button class="btn min-h-8 min-w-20 border-stroke bg-white font-medium text-gray text-xs hover:text-white hover:bg-primary active:bg-primary">Interview</button>
+                <button class="btn min-h-8 min-w-20 border-stroke bg-white font-medium text-gray text-xs hover:text-white hover:bg-primary active:bg-primary">Rejected</button>
+            </div> -->
+
+            
+        </div>
+    </section>
+</body>
+</html>

@@ -108,3 +108,17 @@ function updateRejectedCounter(applications) {
         document.getElementById('rejected-lists').innerHTML = noApplicationsMsg;
     } 
 }
+
+function updateApplicationListing() {
+
+    insertCardElements(applications, applicationContainer);
+
+    const updatedInterviewList = applications.filter(data => data.status === 'interview');
+    insertCardElements(updatedInterviewList,interviewLists);
+
+    const updatedRejectList = applications.filter(data => data.status === 'rejected');
+    insertCardElements(updatedRejectList,rejectedLists);
+
+    updateInterviewCounter(applications);  
+    updateRejectedCounter(applications);  
+}

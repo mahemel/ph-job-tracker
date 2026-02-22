@@ -128,21 +128,16 @@ applicationModule .addEventListener('click', function(event) {
     
     const elementId = Number(deleteBtn.dataset.target);
 
-    const arrayIndex = applications.findIndex(application => application.id === elementId)
+    const elementIndex = applications.findIndex(application => application.id === elementId)
     
-    if(arrayIndex !== -1 ) applications.splice(arrayIndex, 1);
+    //Deleteing specific array element
+    if(elementIndex !== -1 ) {
+        applications.splice(elementIndex, 1);
+    }
 
     updateTotalJobCount(applications);  
-    insertCardElements(applications, applicationContainer);
 
-    const updatedList = applications.filter(data => data.status === 'interview');
-    insertCardElements(updatedList,interviewLists);
-
-    const updatedList2 = applications.filter(data => data.status === 'rejected');
-    insertCardElements(updatedList2,rejectedLists);
-
-    updateInterviewCounter(applications);  
-    updateRejectedCounter(applications);  
+    updateApplicationListing();
 
     if(applications.length === 0) {
         applicationContainer.innerHTML = noApplicationsMsg;
@@ -160,19 +155,11 @@ applicationModule.addEventListener('click', function(event) {
    
     //updating status
     const findId = applications.find(data => data.id === targetApp);
-    findId.status = 'interview';
-    
-    const updatedList = applications.filter(data => data.status === 'interview');
-    insertCardElements(updatedList,interviewLists);
+    if(findId) {
+        findId.status = 'interview';
+    }
 
-    const updatedList2 = applications.filter(data => data.status === 'rejected');
-    insertCardElements(updatedList2,rejectedLists);
-
-    updateInterviewCounter(applications);
-
-    updateRejectedCounter(applications);
-    insertCardElements(applications, applicationContainer);
-    
+    updateApplicationListing();
 })
 
 applicationModule.addEventListener('click', function(event) {
@@ -186,19 +173,11 @@ applicationModule.addEventListener('click', function(event) {
    
     //updating status
     const findId = applications.find(data => data.id === targetApp);
-    findId.status = 'rejected';
-    
-    const updatedList = applications.filter(data => data.status === 'interview');
-    insertCardElements(updatedList,interviewLists);
+    if(findId) {
+        findId.status = 'rejected';
+    }
 
-    const updatedList2 = applications.filter(data => data.status === 'rejected');
-    insertCardElements(updatedList2,rejectedLists);
-
-    updateInterviewCounter(applications);
-
-    // //Update rejected Tab
-    updateRejectedCounter(applications);
-    insertCardElements(applications, applicationContainer);
+    updateApplicationListing();
     
 })
 

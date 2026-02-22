@@ -110,12 +110,14 @@ function updateRejectedCounter(applications) {
 }
 
 function updateApplicationListing() {
-
+    //inserting all the updated cards
     insertCardElements(applications, applicationContainer);
 
+    //updating interview list
     const updatedInterviewList = applications.filter(data => data.status === 'interview');
     insertCardElements(updatedInterviewList,interviewLists);
 
+    //updating rejected list
     const updatedRejectList = applications.filter(data => data.status === 'rejected');
     insertCardElements(updatedRejectList,rejectedLists);
 

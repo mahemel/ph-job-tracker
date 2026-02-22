@@ -34,7 +34,7 @@ function insertCardElements(cardData,targetContainer) {
         }
 
         card.innerHTML = `
-            <div class="card-body p-6 gap-0 jobCard">
+            <div class="card-body p-4 sm:p-6 gap-0 jobCard">
                 <h2 class="card-title text-lg text-black font-semibold mb-1">${companyName}</h2>
                 <p class="job-position text-gray text-base mb-5">${position}</p>
 
@@ -51,7 +51,7 @@ function insertCardElements(cardData,targetContainer) {
                     <button class="rejectBtn btn border-red font-medium rounded text-red bg-white h-9 w-[100px]">REJECTED</button>
                 </div>
 
-                <button type="button" class="btn btn-circle absolute top-8 right-6 deleteJob" data-target="${id}"><img src="assets/trash.svg" alt="Trash Icon"></button>
+                <button type="button" class="btn btn-circle absolute top-4 sm:top-8 right-4 sm:right-6 deleteJob" data-target="${id}"><img src="assets/trash.svg" alt="Trash Icon"></button>
             </div>        
         `;
         targetContainer.appendChild(card)
@@ -70,7 +70,7 @@ function updateTotalJobCount(applist) {
 
 const noApplicationsMsg = `
 <div class="card bg-white border border-stroke text-center noItems">
-    <div class="card-body p-6 gap-0 py-[111px] text-center">
+    <div class="card-body p-6 gap-0 py-[60px] sm:py-[111px] text-center">
         <img class="w-[100px] mx-auto mb-5" src="assets/document.svg" alt="document icon">
         <h3 class="text-2xl text-black font-semibold mb-1">No jobs available</h3>
         <p class="text-base text-gray">Check back soon for new job opportunities</p>

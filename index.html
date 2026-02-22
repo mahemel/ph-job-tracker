@@ -30,7 +30,7 @@
             font-family: "Geist", sans-serif;
         }
         .btn-active {
-            background: var(--color-primary);
+            background: #3B82F6;
             color: #fff;
         }
         .tabs-box input {
@@ -38,7 +38,7 @@
             min-width: 84px;
         }
         .tabs-box input:checked {
-            background: var(--color-primary);
+            background: #3B82F6;
             color: #fff;
         }
     </style>
@@ -86,7 +86,7 @@
                     </div>
                     
                     <div id="rejection-counter" class="hidden">
-                        <p class="total-rejected">0</span> of 
+                        <span class="total-rejected leading-none">0</span> of 
                     </div>
                     
                     <div id="job-counts">
@@ -99,28 +99,24 @@
 
             <!-- name of each tab group should be unique -->
             <div id="application-module" class="tabs tabs-box bg-transparent border-0 shadow-none p-0 gap-2 mb-4">
-                <input type="radio" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="All" checked="checked" />
+                <input type="radio" id="all" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="All" checked="checked" />
 
                 <div class="tab-content">
                     <div id="application-lists" class="space-y-4">
                     </div>
                 </div>
 
-                <input type="radio" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="Interview" />
+                <input type="radio" id="interview" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="Interview" />
                 <div class="tab-content">
-                    <div id="interview-lists" class="space-y-4">
-                        <div class="card bg-white border border-stroke text-center noItems">
-                            <div class="card-body p-6 gap-0 py-[111px] text-center">
-                                <img class="w-[100px] mx-auto mb-5" src="assets/document.svg" alt="document icon">
-                                <h3 class="text-2xl text-black font-semibold mb-1">No jobs available</h3>
-                                <p class="text-base text-gray">Check back soon for new job opportunities</p>
-                            </div>
-                        </div>
+                    <div id="interview-lists" class="space-y-4">                        
                     </div>
                 </div>
 
-                <input type="radio" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="Rejected" />
-                <div class="tab-content">Tab content 3</div>
+                <input type="radio" id="reject" name="my_tabs_1" class="tab min-h-8 min-w-20 border border-stroke bg-white font-medium text-gray text-xs" aria-label="Rejected" />
+                <div class="tab-content">
+                    <div id="rejected-lists" class="space-y-4">                        
+                    </div>                    
+                </div>
             </div>
 
 
@@ -133,7 +129,8 @@
             
         </div>
     </section>
-    <script src="scripts/data.js"></script>
     <script src="scripts/machine.js"></script>
+    <script src="scripts/data.js"></script>
+
 </body>
 </html>

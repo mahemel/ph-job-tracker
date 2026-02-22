@@ -82,91 +82,123 @@ const applications = [
 ]
 
 const applicationContainer = document.getElementById('application-lists');
+const interviewLists = document.getElementById('interview-lists');
+const rejectedLists = document.getElementById('rejected-lists');
+const interviewCounter = document.getElementById('interview-counter');
+const rejectCounter = document.getElementById('rejection-counter');
 
-applications.forEach(function(data) {
-    const card = document.createElement('div');
-    card.classList.add('card', 'bg-white', 'border', 'border-stroke');
-    card.dataset.id = data.id;
+insertCardElements(applications,applicationContainer);
 
-    let status = `<div class="badge h-9 rounded font-medium text-black bg-sky">NOT APPLIED</div>`;
-    if(data.status === 'interview') {
-        status = `<div class="badge h-9 rounded font-medium text-green/90 bg-green/50">INTERVIEW</div>`;
-    }
-    else if (data.status === 'rejected') {
-        status = `<div class="badge h-9 rounded font-medium text-red/80 bg-red/50">REJECTED</div>`;
-    }
+//Update Interview Tab
+updateInterviewCounter(applications);
 
-    card.innerHTML = `
-        <div class="card-body p-6 gap-0 jobCard">
-            <h2 class="card-title text-lg text-black font-semibold mb-1">${data.companyName}</h2>
-            <p class="job-position text-gray text-base mb-5">${data.position}</p>
+//Update rejected Tab
+updateRejectedCounter(applications);
 
-            <p class="text-gray text-sm mb-5">${data.location} • ${data.type} • ${data.salary}</p>
-
-            <div class="job-card-status mb-2">
-                ${status}
-            </div>
-
-            <p class="text-darkGray text-sm mb-5">${data.description}</p>
-
-            <div class="btn-grup flex gap-2">
-                <button class="interviewBtn btn border-green font-medium rounded text-green bg-white h-9 w-[100px]">INTERVIEW</button>
-                <button class="btn border-red font-medium rounded text-red bg-white h-9 w-[100px]">REJECTED</button>
-            </div>
-
-            <button type="button" class="btn btn-circle absolute top-8 right-6 deleteJob" data-target="${data.id}"><img src="assets/trash.svg" alt="Trash Icon"></button>
-        </div>        
-    `;
-    
-    applicationContainer.appendChild(card);
-});
+//Update job count
+updateTotalJobCount(applications);
 
 
-function updateTotalJobs() {
-    let totalJobs = applications.length;
-
-    const totalJobsHolder = document.querySelectorAll('.total-job');
-    totalJobsHolder.forEach(function(data) {
-        data.textContent = totalJobs;
+document.getElementById('interview')
+    .addEventListener('click', function() {
+        interviewCounter.classList.remove('hidden')
+        rejectCounter.classList.add('hidden')
     })
-}
-updateTotalJobs();
+document.getElementById('reject')
+    .addEventListener('click', function() {
+        interviewCounter.classList.add('hidden')
+        rejectCounter.classList.remove('hidden')
+    })
+document.getElementById('all')
+    .addEventListener('click', function() {
+        interviewCounter.classList.add('hidden')
+        rejectCounter.classList.add('hidden')
+    })
 
+
+//Delete Applications functionality
 const applicationModule = document.getElementById('application-module');
+
 applicationModule .addEventListener('click', function(event) {
     const deleteBtn = event.target.closest('.deleteJob');
 
-    if(!deleteBtn || !applicationModule.contains(deleteBtn)) {
+    if(!deleteBtn) {
         return;
     }
+    
     const elementId = Number(deleteBtn.dataset.target);
 
     const arrayIndex = applications.findIndex(application => application.id === elementId)
     
-    if(arrayIndex !== -1 ) {
-        applications.splice(arrayIndex, 1);
-        console.log(applications.length)
+    if(arrayIndex !== -1 ) applications.splice(arrayIndex, 1);
+
+    updateTotalJobCount(applications);  
+    insertCardElements(applications, applicationContainer);
+
+    const updatedList = applications.filter(data => data.status === 'interview');
+    insertCardElements(updatedList,interviewLists);
+
+    const updatedList2 = applications.filter(data => data.status === 'rejected');
+    insertCardElements(updatedList2,rejectedLists);
+
+    updateInterviewCounter(applications);  
+    updateRejectedCounter(applications);  
+
+    if(applications.length === 0) {
+        applicationContainer.innerHTML = noApplicationsMsg;
+    } 
+})
+
+applicationModule.addEventListener('click', function(event) {
+    const interviewBtn = event.target.closest('.interviewBtn');
+
+    if(!interviewBtn) {
+        return;
     }
-        
-    deleteBtn.closest('.card').remove();
+    
+    const targetApp = Number(interviewBtn.closest('.card').dataset.id);
+   
+    //updating status
+    const findId = applications.find(data => data.id === targetApp);
+    findId.status = 'interview';
+    
+    const updatedList = applications.filter(data => data.status === 'interview');
+    insertCardElements(updatedList,interviewLists);
 
-    updateTotalJobs();
+    const updatedList2 = applications.filter(data => data.status === 'rejected');
+    insertCardElements(updatedList2,rejectedLists);
+
+    updateInterviewCounter(applications);
+
+    updateRejectedCounter(applications);
+    insertCardElements(applications, applicationContainer);
+    
 })
 
-const interviewBtn = document.querySelectorAll('.interviewBtn'); 
-interviewBtn.forEach(function(element) {
-    element.addEventListener('click', function() {
-        const targetApp = Number(this.closest('.card').dataset.id) - 1;
+applicationModule.addEventListener('click', function(event) {
+    const rejectBtn = event.target.closest('.rejectBtn');
 
-        applications[targetApp].status = 'interview';
-        // console.log(applications[targetApp])
+    if(!rejectBtn) {
+        return;
+    }
+    
+    const targetApp = Number(rejectBtn.closest('.card').dataset.id);
+   
+    //updating status
+    const findId = applications.find(data => data.id === targetApp);
+    findId.status = 'rejected';
+    
+    const updatedList = applications.filter(data => data.status === 'interview');
+    insertCardElements(updatedList,interviewLists);
 
-        const interviewLists = document.getElementById('interview-lists');
+    const updatedList2 = applications.filter(data => data.status === 'rejected');
+    insertCardElements(updatedList2,rejectedLists);
 
-       
-        const filter = applications.filter(data => data.status === 'interview');
+    updateInterviewCounter(applications);
 
-        console.log(filter)
-        
-    })
+    // //Update rejected Tab
+    updateRejectedCounter(applications);
+    insertCardElements(applications, applicationContainer);
+    
 })
+
